@@ -389,6 +389,13 @@ footer strong { color: var(--ink); }
       <p><strong>vouch</strong> is ERPit's companion protocol, under the same license. A customer keeps their name, address, and credentials on their own node. They give a vendor a signed grant for specific fields, for a specific purpose, until a specific time.</p>
       <p>The vendor's books record who did what, with signatures. They do not record the customer's personal details. The customer's node logs each read. When a customer revokes a grant, the next read fails.</p>
       <p>A vendor can also forget a customer's name. ERPit deletes the name it held, and a test measures the stored data to prove the deletion.</p>
+      <h3 class="sub">What the business gains</h3>
+      <ul class="facts">
+        <li><strong>Less to protect.</strong> A business cannot leak data that it does not hold. ERPit's permanent records contain no customer names or addresses.</li>
+        <li><strong>A smaller breach.</strong> If a vendor's node is ever compromised, there are fewer customer records to expose and fewer customers to notify.</li>
+        <li><strong>Less risk to insure.</strong> Less stored personal data can reduce the cyber-liability coverage that a business needs. Ask your insurer how this applies to you.</li>
+      </ul>
+      <p class="note">The limits, stated plainly: a vendor still holds a field that it fetches, for example a shipping address for an order. Some laws make a business keep certain customer records. vouch shows that retention in the customer's consent ledger. It never hides it.</p>
     </div>
   </div>
 </section>
