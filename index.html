@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ERPit: self-owned ERP. Your books, your customers' data, your AI.</title>
+<meta name="description" content="ERPit is ERP and manufacturing software built for total self-ownership. The business hosts its own books. Customers host their own personal data. AI agents run on open-weight models on the company's own hardware. AGPL-3.0. Built by RiRo Enterprises, LLC.">
+<meta property="og:title" content="ERPit">
+<meta property="og:description" content="Self-owned ERP and MRP. The business hosts its books, the customer hosts their data, and AI agents run on the company's own hardware.">
+<meta property="og:url" content="https://erpit.io/">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='3' fill='%231e5a41'/%3E%3Cpath d='M9 8h14v3H12.5v3.5H21v3h-8.5V21H23v3H9z' fill='%23f5f2ea'/%3E%3C/svg%3E">
+<style>
+:root {
+  --paper: #f5f2ea;
+  --panel: #fbf9f4;
+  --ink: #1c1e1a;
+  --muted: #4d5148;
+  --rule: #d8d2c3;
+  --accent: #1e5a41;
+  --accent-soft: #e3ebe4;
+  --on-accent: #f5f2ea;
+  --refuse: #8b2c1f;
+  --serif: Charter, "Bitstream Charter", "Sitka Text", Cambria, "Iowan Old Style", Georgia, serif;
+  --mono: ui-monospace, "JetBrains Mono", "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --measure: 34rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #121411;
+    --panel: #181b17;
+    --ink: #e8e5dc;
+    --muted: #b3b7ac;
+    --rule: #30342d;
+    --accent: #8cc7a6;
+    --accent-soft: #1d2a22;
+    --on-accent: #121411;
+    --refuse: #e2907f;
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 18px/1.6 var(--serif);
+  text-rendering: optimizeLegibility;
+}
+a { color: var(--accent); text-underline-offset: 0.18em; }
+a:hover { text-decoration-thickness: 2px; }
+a:focus-visible, .skip:focus { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+code, .mono { font-family: var(--mono); font-size: 0.86em; }
+p, li { text-wrap: pretty; }
+h1, h2, h3 { font-weight: 700; line-height: 1.15; letter-spacing: -0.01em; text-wrap: balance; margin: 0; }
+
+.skip { position: absolute; left: -999px; top: 8px; background: var(--paper); padding: 8px 12px; }
+.skip:focus { left: 12px; }
+
+.wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+/* Header */
+.top { border-bottom: 1px solid var(--rule); }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 64px; flex-wrap: wrap; }
+.mark { font-weight: 700; font-size: 1.35rem; color: var(--ink); text-decoration: none; letter-spacing: -0.02em; }
+.mark span { color: var(--accent); }
+.top nav { display: flex; gap: 4px 20px; flex-wrap: wrap; font-size: 0.95rem; }
+.top nav a { color: var(--muted); text-decoration: none; padding: 10px 0; display: inline-block; white-space: nowrap; }
+@media (max-width: 640px) {
+  .top .wrap { padding-top: 10px; gap: 0; }
+  .top nav { width: 100%; flex-wrap: nowrap; overflow-x: auto; gap: 18px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+}
+.top nav a:hover { color: var(--ink); }
+
+/* Hero */
+.hero { padding: 72px 0 64px; border-bottom: 1px solid var(--rule); }
+.hero .wrap { display: grid; gap: 48px; align-items: start; }
+.hero .wrap > *, .split > * { min-width: 0; }
+@media (min-width: 920px) { .hero .wrap { grid-template-columns: 1.15fr 0.85fr; gap: 64px; align-items: center; } }
+.eyebrow { font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 0 0 18px; }
+.hero h1 { font-size: clamp(2.3rem, 5.2vw, 3.6rem); max-width: 15ch; }
+.lede { font-size: 1.2rem; color: var(--ink); max-width: var(--measure); margin: 24px 0 0; }
+.lede + p { color: var(--muted); max-width: var(--measure); margin: 16px 0 0; }
+.cta { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; margin-top: 32px; }
+.btn { display: inline-block; background: var(--accent); color: var(--on-accent); text-decoration: none; padding: 12px 20px; border-radius: 3px; font-weight: 600; min-height: 44px; }
+.btn:hover { text-decoration: underline; }
+
+/* Proposal illustration */
+figure { margin: 0; }
+.doc { background: var(--panel); border: 1px solid var(--rule); border-radius: 4px; font-size: 0.95rem; box-shadow: 0 1px 0 var(--rule), 0 12px 32px -24px rgba(0,0,0,0.35); }
+.doc-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 12px; padding: 14px 18px; border-bottom: 1px solid var(--rule); font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.status { color: var(--accent); background: var(--accent-soft); padding: 3px 8px; border-radius: 2px; letter-spacing: 0.04em; }
+.doc dl { margin: 0; padding: 6px 18px 4px; display: grid; grid-template-columns: 7.5rem 1fr; }
+.doc dt, .doc dd { margin: 0; padding: 9px 0; border-bottom: 1px dashed var(--rule); }
+.doc dt { color: var(--muted); font-size: 0.85rem; padding-top: 11px; }
+.doc dd q { font-style: italic; }
+.doc .full { grid-column: 1 / -1; }
+.doc dt.full { border-bottom: 0; padding-bottom: 2px; }
+.doc .lines { overflow-x: auto; }
+.doc table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 0.8rem; }
+.doc th + th, .doc td + td { padding-left: 14px; }
+.doc td { white-space: nowrap; }
+.doc td:first-child { white-space: normal; }
+.doc .compact { display: none; font-family: var(--mono); font-size: 0.8rem; }
+@media (max-width: 380px) { .doc .lines table { display: none; } .doc .compact { display: block; } }
+@media (max-width: 480px) {
+  .doc dl { grid-template-columns: 1fr; padding: 6px 14px 4px; }
+  .doc dt { border-bottom: 0; padding: 10px 0 0; }
+  .doc dd { padding: 2px 0 10px; }
+  .doc th + th, .doc td + td { padding-left: 9px; }
+  .doc table { font-size: 0.76rem; }
+  .top nav { -webkit-mask-image: linear-gradient(to right, #000 85%, transparent); mask-image: linear-gradient(to right, #000 85%, transparent); padding-right: 24px; }
+}
+.doc th { text-align: left; font-weight: 400; color: var(--muted); padding: 0 0 4px; }
+.doc td { padding: 2px 0; }
+.doc .num { text-align: right; font-variant-numeric: tabular-nums; }
+.doc-actions { display: flex; gap: 10px; padding: 14px 18px 18px; }
+.doc-actions span { font-family: var(--serif); font-size: 0.9rem; padding: 7px 14px; border: 1px solid var(--muted); border-radius: 3px; color: var(--ink); }
+.doc-actions span.yes { border-color: var(--accent); color: var(--accent); }
+.fine { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); padding: 0 18px 14px; margin: -6px 0 0; }
+figcaption { font-size: 0.85rem; color: var(--muted); margin-top: 10px; }
+
+/* Sections */
+section { padding: 72px 0; border-bottom: 1px solid var(--rule); }
+.split { display: grid; gap: 28px 64px; }
+@media (min-width: 920px) { .split { grid-template-columns: 0.8fr 1.2fr; } }
+.split h2 { font-size: clamp(1.7rem, 3.2vw, 2.3rem); }
+@media (min-width: 920px) { .split > div:first-child { position: sticky; top: 32px; align-self: start; } }
+.split .kicker { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
+.body > p { margin: 0 0 18px; max-width: var(--measure); }
+.body > p:last-child { margin-bottom: 0; }
+
+.ledger { list-style: none; margin: 0; padding: 0; counter-reset: rule; border-top: 1px solid var(--rule); }
+.ledger li { counter-increment: rule; display: grid; grid-template-columns: 3rem 1fr; gap: 0 12px; padding: 22px 0; border-bottom: 1px solid var(--rule); }
+.ledger li::before { content: counter(rule, decimal-leading-zero); font-family: var(--mono); font-size: 0.85rem; color: var(--accent); padding-top: 4px; }
+.ledger h3 { font-size: 1.2rem; margin-bottom: 6px; }
+.ledger p { margin: 0; color: var(--ink); max-width: var(--measure); }
+
+.steps { margin: 8px 0 28px; padding: 0; list-style: none; counter-reset: step; }
+.steps li { counter-increment: step; position: relative; padding: 0 0 18px 44px; max-width: var(--measure); }
+.steps li::before { content: counter(step); position: absolute; left: 0; top: 0.1em; width: 28px; height: 28px; border: 1px solid var(--accent); border-radius: 50%; display: grid; place-items: center; font-family: var(--mono); font-size: 0.8rem; color: var(--accent); }
+.steps li:not(:last-child)::after { content: ""; position: absolute; left: 14px; top: 34px; bottom: 4px; border-left: 1px solid var(--rule); }
+
+.nb { white-space: nowrap; }
+pre.verdict { margin: 0 0 12px; padding: 14px 16px; background: var(--panel); border: 1px solid var(--rule); border-radius: 4px; overflow-x: auto; font-family: var(--mono); font-size: 0.82rem; line-height: 1.5; color: var(--refuse); white-space: pre-wrap; overflow-wrap: normal; word-break: normal; }
+.sub { font-size: 1.1rem; margin: 30px 0 12px; }
+.owners { list-style: none; margin: 8px 0 28px; padding: 0; border-top: 1px solid var(--rule); }
+.owners li { display: grid; gap: 4px 24px; padding: 18px 0; border-bottom: 1px solid var(--rule); }
+.owners h3 { font-size: 1.1rem; }
+.owners p { margin: 0; }
+.owners li > p { font-size: 0.97rem; }
+.owners .who { margin-top: 6px; }
+.owners .eg { color: var(--muted); font-size: 0.9rem; }
+.owners .who { font-family: var(--mono); font-size: 0.85rem; color: var(--accent); }
+.owners-head { display: none !important; }
+@media (min-width: 720px) {
+  .owners li { grid-template-columns: 13rem 1fr; gap: 4px 28px; }
+  .owners .owners-head { display: grid !important; padding: 0 0 8px; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+}
+.facts { margin: 0 0 28px; padding: 0; list-style: none; max-width: var(--measure); border-top: 1px solid var(--rule); }
+.facts li { padding: 12px 0; border-bottom: 1px solid var(--rule); }
+.record { background: var(--panel); border: 1px solid var(--rule); border-radius: 4px; padding: 16px 18px; margin: 0 0 18px; max-width: var(--measure); }
+.record figcaption { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); margin: 0 0 8px; }
+.record p { margin: 0; }
+.note { color: var(--muted); font-size: 0.95rem; max-width: var(--measure); margin: 0 0 18px; }
+
+.status-grid { display: grid; gap: 28px 40px; margin-top: 32px; }
+@media (min-width: 1000px) { .status-grid { grid-template-columns: 1.2fr 0.8fr; } }
+.status-grid h3 { font-size: 1rem; font-family: var(--mono); font-weight: 400; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+.status-grid ul { margin: 0; padding-left: 1.1em; }
+.status-grid li { margin: 0 0 8px; }
+.warn { border: 1px solid var(--rule); background: var(--panel); padding: 14px 18px; border-radius: 4px; }
+
+/* Footer */
+footer { padding: 48px 0 64px; font-size: 0.95rem; color: var(--muted); }
+footer .wrap { display: grid; gap: 24px 64px; }
+footer .cols { display: grid; gap: 24px 40px; }
+@media (min-width: 720px) { footer .cols { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 920px) { footer .wrap { grid-template-columns: 0.8fr 1.2fr; } }
+footer .legal { grid-column: 1 / -1; border-top: 1px solid var(--rule); padding-top: 18px; font-size: 0.85rem; }
+footer h2 { font-size: 0.8rem; font-family: var(--mono); font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 8px; color: var(--muted); }
+footer p { margin: 0 0 6px; }
+footer strong { color: var(--ink); }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="/">ERP<span>it</span></a>
+    <nav aria-label="Sections">
+      <a href="#ownership">Self-ownership</a>
+      <a href="#how">How it works</a>
+      <a href="#agents">AI agents</a>
+      <a href="#local">Local models</a>
+      <a href="#vouch">Customer data</a>
+      <a href="#status">Status</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">ERP and MRP · Self-owned by design · AGPL-3.0</p>
+      <h1>Your data stays with the people who own it.</h1>
+      <p class="lede">ERPit runs purchasing, inventory, manufacturing, sales, and accounting for a small manufacturer. The business hosts its own books. Customers host their own personal data. AI agents run on the company's own hardware.</p>
+      <p>Every business action is a signed event, and the accounting comes from those events automatically. AI agents are users with their own identity and limited permissions. Agents propose. People approve. The record shows both.</p>
+      <div class="cta">
+        <a class="btn" href="#ownership">Who owns what</a>
+        <a href="#status">What is built today</a>
+      </div>
+    </div>
+
+    <figure>
+      <div class="doc" aria-hidden="true">
+        <div class="doc-head"><span>Approval inbox · Proposal</span><span class="status">Awaiting approval</span></div>
+        <dl>
+          <dt>Asked</dt>
+          <dd><q>Order 500,000 copper cores from Generic Metals.</q></dd>
+          <dt>Proposed by</dt>
+          <dd>Purchasing agent</dd>
+          <dt>Event</dt>
+          <dd><code>%po-create</code>, purchase order</dd>
+          <dt class="full">Lines</dt>
+          <dd class="full lines">
+            <table>
+              <thead><tr><th>Item</th><th class="num">Qty</th><th class="num">Unit</th><th class="num">Total</th></tr></thead>
+              <tbody><tr><td>Copper core</td><td class="num">500,000</td><td class="num">$0.0037</td><td class="num">$1,850.00</td></tr></tbody>
+            </table>
+            <div class="compact">Copper core<br>500,000 × $0.0037 = $1,850.00</div>
+          </dd>
+          <dt>Held for</dt>
+          <dd>Purchasing manager, the agent's supervisor</dd>
+        </dl>
+        <div class="doc-actions"><span class="yes">Approve</span><span>Deny</span></div>
+        <p class="fine">Signed with the purchasing agent's key</p>
+      </div>
+      <figcaption>Illustration: an agent's proposal waiting in the approval inbox.</figcaption>
+    </figure>
+  </div>
+</div>
+
+<section id="ownership">
+  <div class="wrap split">
+    <div>
+      <p class="kicker">Self-ownership</p>
+      <h2>Each kind of data lives with its owner.</h2>
+    </div>
+    <div class="body">
+      <p>ERPit is built for total self-ownership. No vendor cloud sits between people and their own data, and no outside AI service reads it.</p>
+      <ol class="owners">
+        <li class="owners-head" aria-hidden="true"><span>Data · owned and hosted by</span><span>How</span></li>
+        <li>
+          <div><h3>Business records</h3><p class="eg">Books, inventory, orders, costs</p><p class="who">The business</p></div>
+          <p>The company runs ERPit on its own node, on hardware it controls. Every record is a signed event in the company's own log.</p>
+        </li>
+        <li>
+          <div><h3>Customer personal data</h3><p class="eg">Names, addresses, credentials</p><p class="who">The customer</p></div>
+          <p>The customer keeps it on their own node and grants a vendor specific fields, for a stated purpose, until a stated time. The vendor's books record a cryptographic identity, not a name.</p>
+        </li>
+        <li>
+          <div><h3>Agent work</h3><p class="eg">Prompts, answers, proposals</p><p class="who">The business</p></div>
+          <p>Agents run on open-weight models on the company's own hardware. ERPit needs no outside AI service.</p>
+        </li>
+      </ol>
+      <p>ERPit runs on Urbit, a peer-to-peer network of personal servers. Each company, employee, customer, and agent has its own node and cryptographic identity. The company's ERPit host rejects messages from unregistered nodes before it reads them.</p>
+      <p>No vendor can raise the rent, retire the version, or hold the data.</p>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap split">
+    <div>
+      <p class="kicker">How it works</p>
+      <h2>Accounting is the spine, not a module.</h2>
+    </div>
+    <ol class="ledger">
+      <li>
+        <div>
+          <h3>Every action is an event.</h3>
+          <p>A receipt, a production step, an invoice, a payment: each one is a signed event. The system checks every event against explicit rules before it accepts it. The current state is the result of all accepted events.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>The books are derived, not typed in.</h3>
+          <p>Each operational event makes its own balanced journal entry. Inventory value and the general ledger agree because the same events produce both. Cost layers keep exact values, so a $0.0037 part costs exactly $0.0037. No floating-point number touches money.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>History is never edited.</h3>
+          <p>A correction is a new event, not a changed row. A replay of the full event log rebuilds the same books to the cent. The test battery includes this replay.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>Rules are data.</h3>
+          <p>Tax rules, credential requirements, and custom fields are records that the company edits. The code that computes and balances the money does not change when they do.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section id="agents">
+  <div class="wrap split">
+    <div>
+      <p class="kicker">AI agents</p>
+      <h2>Agents work under the same rules as people.</h2>
+    </div>
+    <div class="body">
+      <p>An AI agent in ERPit is a registered user with its own cryptographic identity. It connects through the Model Context Protocol (MCP). Through MCP, it can read and propose any action that a person can do from the screen. Signing-key ceremonies are the exception. They stay with people by design.</p>
+      <ol class="steps">
+        <li>A person asks in plain language: <q>Order 500,000 copper cores from Generic Metals.</q></li>
+        <li>The agent writes the request as a proposed event and submits it to the company's host.</li>
+        <li>The host checks the proposal against the agent's permissions. An agent can never have more reach than its supervisor.</li>
+        <li>The proposal waits in the approval inbox as a readable table. A person approves or denies it. Nobody can approve their own proposal.</li>
+        <li>On approval, the event commits. The record shows the agent as the actor and the person who approved it.</li>
+      </ol>
+      <p>When the host refuses an action, it gives the reason by name. The agent reports the reason word for word to its supervisor:</p>
+      <pre class="verdict">no-capability: capped by supervisor ~sampel-palnet <span class="nb">(no grant on %po-create)</span></pre>
+      <p class="note">Safety comes from permissions that the host enforces, not from the prompt. A weak model can fail a task. It cannot get past the host.</p>
+    </div>
+  </div>
+</section>
+
+<section id="local">
+  <div class="wrap split">
+    <div>
+      <p class="kicker">Local models · Own hardware</p>
+      <h2>The agent runs where the books run.</h2>
+    </div>
+    <div class="body">
+      <p>An ERP holds the most sensitive data a company has: customers, costs, margins, and suppliers. A cloud AI service sees every prompt that an agent sends to it.</p>
+      <p>ERPit is built for open-weight models on the company's own hardware. The agent's prompts, the model's answers, and the business data in them stay in-house. Any model that speaks MCP can connect, so the company chooses the model and can change it.</p>
+      <h3 class="sub">Built so a small model can do the work</h3>
+      <ul class="facts">
+        <li><strong>The interface speaks human.</strong> The agent types dates and amounts the way a person writes them. The host makes the ids and converts the units.</li>
+        <li><strong>Refusals teach.</strong> A refused command names the field and shows the expected form, for example a decimal string like <code>"420.00"</code>.</li>
+        <li><strong>The instructions ship with the software.</strong> The agent reads its task guide from the ERPit host as MCP resources, so the guide always matches the installed version.</li>
+      </ul>
+      <figure class="record">
+        <figcaption>Measured in a live session, July 2026</figcaption>
+        <p>A local open-weight model, Qwen3.6-35B-A3B, worked as the agent. It has 3 billion active parameters. It failed its task again and again. It sent malformed ids and called the wrong tools. It did not change the books once, because the host refused every bad command by name. A larger model then finished the same task under the same rules.</p>
+      </figure>
+      <p>The local agent model today is Qwen3.8-27B, a 27-billion-parameter open-weight model under the Apache 2.0 license. It runs on our own hardware.</p>
+      <p class="note">Model quality decides whether the task gets done. It does not decide what the agent can do. A July 2026 run found places where a small local model still needed a person to translate. The fixes for those findings are in the code. A live re-test is the next scheduled ERPit task.</p>
+    </div>
+  </div>
+</section>
+
+<section id="vouch">
+  <div class="wrap split">
+    <div>
+      <p class="kicker">Customer data · vouch</p>
+      <h2>Customer data stays with the customer.</h2>
+    </div>
+    <div class="body">
+      <p><strong>vouch</strong> is ERPit's companion protocol, under the same license. A customer keeps their name, address, and credentials on their own node. They give a vendor a signed grant for specific fields, for a specific purpose, until a specific time.</p>
+      <p>The vendor's books record who did what, with signatures. They do not record the customer's personal details. The customer's node logs each read. When a customer revokes a grant, the next read fails.</p>
+      <p>A vendor can also forget a customer's name. ERPit deletes the name it held, and a test measures the stored data to prove the deletion.</p>
+    </div>
+  </div>
+</section>
+
+<section id="status">
+  <div class="wrap">
+    <div class="split">
+      <div>
+        <p class="kicker">Status</p>
+        <h2>Pre-release, with the core built and tested.</h2>
+      </div>
+      <div class="body">
+        <p class="warn"><strong>Do not run real books on ERPit yet.</strong> The core is complete and tested, but there is no production release.</p>
+        <p>The test suite had 1,681 automated tests in September 2026. Acceptance runs also cover two separate nodes on a real network, the browser interface, and a full replay of the event log.</p>
+        <p>The source code is licensed AGPL-3.0-or-later. The public repositories open with the first release.</p>
+    <div class="status-grid">
+      <div>
+        <h3>Built</h3>
+        <ul>
+          <li>Accounting: chart of accounts, journals, receivables and payables, period close, trial balance, income statement, balance sheet</li>
+          <li>Purchasing and inventory with FIFO cost layers and lot tracking</li>
+          <li>Manufacturing with bills of materials, labor and overhead absorption, and quality checks</li>
+          <li>Sales, fulfillment, invoicing, and payments by card, Bitcoin, check, and wire</li>
+          <li>Bank and card CSV imports with reconciliation, plus fixed assets and depreciation</li>
+          <li>Browser interface with the approval inbox and a permission editor</li>
+          <li>AI agent access over MCP, with propose and approve, proven in a live agent session</li>
+          <li>vouch integration between separate ships</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Not built yet</h3>
+        <ul>
+          <li>Automations engine</li>
+          <li>Storefront bridge, starting with WooCommerce</li>
+          <li>Signed backup export</li>
+          <li>Outbound email for documents and notices</li>
+          <li>Unassisted work by a small local model (re-test scheduled)</li>
+        </ul>
+      </div>
+    </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer id="company">
+  <div class="wrap">
+    <div>
+      <h2>Company</h2>
+      <p><strong>RiRo Enterprises, LLC</strong>, a Texas limited liability company, develops ERPit and vouch.</p>
+    </div>
+    <div class="cols">
+      <div>
+        <h2>Contact</h2>
+        <p><a href="mailto:hello@erpit.io">hello@erpit.io</a></p>
+      </div>
+      <div>
+        <h2>License</h2>
+        <p>ERPit and vouch: <a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL-3.0-or-later</a></p>
+      </div>
+    </div>
+    <p class="legal">© 2026 RiRo Enterprises, LLC</p>
+  </div>
+</footer>
+</body>
+</html>
