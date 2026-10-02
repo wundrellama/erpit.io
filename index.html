@@ -159,6 +159,7 @@ pre.verdict { margin: 0 0 12px; padding: 14px 16px; background: var(--panel); bo
 }
 .facts { margin: 0 0 28px; padding: 0; list-style: none; max-width: var(--measure); border-top: 1px solid var(--rule); }
 .facts li { padding: 12px 0; border-bottom: 1px solid var(--rule); }
+.body .note a { color: inherit; }
 .record { background: var(--panel); border: 1px solid var(--rule); border-radius: 4px; padding: 16px 18px; margin: 0 0 18px; max-width: var(--measure); }
 .record figcaption { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); margin: 0 0 8px; }
 .record p { margin: 0; }
@@ -192,10 +193,12 @@ footer strong { color: var(--ink); }
     <nav aria-label="Sections">
       <a href="#ownership">Self-ownership</a>
       <a href="#how">How it works</a>
+      <a href="#urbit">Why Urbit</a>
       <a href="#agents">AI agents</a>
       <a href="#local">Local models</a>
       <a href="#vouch">Customer data</a>
       <a href="#status">Status</a>
+      <a href="#urgit">urgit</a>
     </nav>
   </div>
 </header>
@@ -267,7 +270,7 @@ footer strong { color: var(--ink); }
           <p>Agents run on open-weight models on the company's own hardware. ERPit needs no outside AI service.</p>
         </li>
       </ol>
-      <p>ERPit runs on Urbit, a peer-to-peer network of personal servers. Each company, employee, customer, and agent has its own node and cryptographic identity. The company's ERPit host rejects messages from unregistered nodes before it reads them.</p>
+      <p>ERPit runs on <a href="https://urbit.org/overview">Urbit</a>, a peer-to-peer network of personal servers. Each company, employee, customer, and agent has its own node and cryptographic identity. The company's ERPit host rejects messages from unregistered nodes before it reads them. <a href="#urbit">Why Urbit fits an ERP</a>.</p>
       <p>No vendor can raise the rent, retire the version, or hold the data.</p>
     </div>
   </div>
@@ -308,6 +311,27 @@ footer strong { color: var(--ink); }
   </div>
 </section>
 
+<section id="urbit">
+  <div class="wrap split">
+    <div>
+      <p class="kicker">Why Urbit</p>
+      <h2>An ERP is a set of state machines. Urbit runs state machines.</h2>
+    </div>
+    <div class="body">
+      <p><a href="https://urbit.org/overview">Urbit</a> is a personal server: an operating system and network that each person or company runs for itself. Its design matches what an ERP needs, so ERPit gets these properties from the platform instead of building them on top of a database.</p>
+      <ul class="facts">
+        <li><strong>Every app is an event log.</strong> An Urbit app changes state only by processing events, one at a time, in order. ERP data works the same way: stock moves, orders, invoices, and payments, each with rules for what can happen next.</li>
+        <li><strong>Every event is atomic.</strong> An event either happens completely or not at all. A crash in the middle of a write cannot leave half an invoice in the books.</li>
+        <li><strong>Identity is built in.</strong> Every node has an <a href="https://urbit.org/overview/urbit-explained/urbit-id">Urbit ID</a>: a name, a network address, and a key in one. Each ERPit event carries the signature of the identity that made it. <q>Who did this</q> is a cryptographic fact, not a log line that an administrator can edit.</li>
+        <li><strong>The org chart maps to the network.</strong> Urbit IDs form a hierarchy. An ERPit agent runs on a moon, which is a child identity under its supervisor's node. The network itself records who answers for each agent.</li>
+        <li><strong>Nodes talk directly.</strong> Traffic between nodes is peer-to-peer and encrypted end to end. A vendor's node asks the customer's node for a field when it needs it, so customer data does not have to sit in the vendor's database.</li>
+        <li><strong>It runs on hardware you own.</strong> Urbit runs on almost any Unix computer, from a home server to a rented machine. Self-hosting is the normal case, not an option.</li>
+      </ul>
+      <p class="note">The trade-off: Urbit is young. Its hosting tools trail mainstream cloud tools, and few developers know it yet. ERPit accepts that cost for the properties above.</p>
+    </div>
+  </div>
+</section>
+
 <section id="agents">
   <div class="wrap split">
     <div>
@@ -339,7 +363,7 @@ footer strong { color: var(--ink); }
     <div class="body">
       <p>An ERP holds the most sensitive data a company has: customers, costs, margins, and suppliers. A cloud AI service sees every prompt that an agent sends to it.</p>
       <p>ERPit is built for open-weight models on the company's own hardware. The agent's prompts, the model's answers, and the business data in them stay in-house. Any model that speaks MCP can connect, so the company chooses the model and can change it.</p>
-      <h3 class="sub">Built so a small model can do the work</h3>
+      <h3 class="sub">Built so a local model can do the work</h3>
       <ul class="facts">
         <li><strong>The interface speaks human.</strong> The agent types dates and amounts the way a person writes them. The host makes the ids and converts the units.</li>
         <li><strong>Refusals teach.</strong> A refused command names the field and shows the expected form, for example a decimal string like <code>"420.00"</code>.</li>
@@ -406,6 +430,29 @@ footer strong { color: var(--ink); }
       </div>
     </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section id="urgit">
+  <div class="wrap split">
+    <div>
+      <p class="kicker">Side work · urgit</p>
+      <h2>The same idea, applied to source code.</h2>
+    </div>
+    <div class="body">
+      <p>We also contribute to <a href="https://github.com/yapishu/urgit">urgit</a>, which turns an Urbit node into a Git host and code-review site. Standard Git clients clone from it and push to it. Repositories, permissions, forks, and pull requests stay on the owner's node. We use urgit on our own node every day.</p>
+      <h3 class="sub">Our contributions</h3>
+      <ul class="facts">
+        <li>Fixes that let stock <code>git</code> clients work with urgit without HTTP errors</li>
+        <li>Faster packing: three steps in the pack path changed from quadratic to linear time</li>
+        <li>Large repositories served in chunks, with visible transfer progress</li>
+        <li>Per-repository access control and pull requests that target a branch</li>
+        <li>Repository access granted through membership in an Urbit group</li>
+        <li>A measured profile of node-to-node transfers: urgit's own code takes about 0.1% of the time, and the rest is in the network layer</li>
+      </ul>
+      <p>In progress: native continuous integration. The urgit node schedules each build, and an outside runner executes it in a fresh virtual machine that is discarded afterward. The design is <a href="https://github.com/yapishu/urgit/pull/16">open for review upstream</a>.</p>
+      <p class="note"><a href="https://github.com/yapishu/urgit/pulls?q=is%3Apr+author%3Awundrellama+is%3Amerged">11 merged pull requests</a> as of October 2026.</p>
     </div>
   </div>
 </section>
