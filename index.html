@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ERPit: self-owned ERP. Your books, your customers' data, your AI.</title>
-<meta name="description" content="ERPit is ERP and manufacturing software built for total self-ownership. The business hosts its own books. Customers host their own personal data. AI agents run on open-weight models on the company's own hardware. AGPL-3.0. Built by RiRo Enterprises, LLC.">
+<title>ERPit: ERP on Urbit. Signed records and customer-held data.</title>
+<meta name="description" content="ERPit is ERP and manufacturing software built on Urbit. Every company, employee, customer, and AI agent has a cryptographic identity. Every record carries the signature of the identity that made it, and customers keep their personal data on their own nodes. AGPL-3.0. Built by RiRo Enterprises, LLC.">
 <meta property="og:title" content="ERPit">
-<meta property="og:description" content="Self-owned ERP and MRP. The business hosts its books, the customer hosts their data, and AI agents run on the company's own hardware.">
+<meta property="og:description" content="ERP and MRP on Urbit. Signed records, customer-held data, and AI agents that answer to a supervisor.">
 <meta property="og:url" content="https://erpit.io/">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='3' fill='%231e5a41'/%3E%3Cpath d='M9 8h14v3H12.5v3.5H21v3h-8.5V21H23v3H9z' fill='%23f5f2ea'/%3E%3C/svg%3E">
@@ -144,18 +144,17 @@ section { padding: 72px 0; border-bottom: 1px solid var(--rule); }
 .nb { white-space: nowrap; }
 pre.verdict { margin: 0 0 12px; padding: 14px 16px; background: var(--panel); border: 1px solid var(--rule); border-radius: 4px; overflow-x: auto; font-family: var(--mono); font-size: 0.82rem; line-height: 1.5; color: var(--refuse); white-space: pre-wrap; overflow-wrap: normal; word-break: normal; }
 .sub { font-size: 1.1rem; margin: 30px 0 12px; }
-.owners { list-style: none; margin: 8px 0 28px; padding: 0; border-top: 1px solid var(--rule); }
-.owners li { display: grid; gap: 4px 24px; padding: 18px 0; border-bottom: 1px solid var(--rule); }
-.owners h3 { font-size: 1.1rem; }
-.owners p { margin: 0; }
-.owners li > p { font-size: 0.97rem; }
-.owners .who { margin-top: 6px; }
-.owners .eg { color: var(--muted); font-size: 0.9rem; }
-.owners .who { font-family: var(--mono); font-size: 0.85rem; color: var(--accent); }
-.owners-head { display: none !important; }
-@media (min-width: 720px) {
-  .owners li { grid-template-columns: 13rem 1fr; gap: 4px 28px; }
-  .owners .owners-head { display: grid !important; padding: 0 0 8px; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.compare { width: 100%; border-collapse: collapse; margin: 8px 0 32px; }
+.compare thead th { text-align: left; font-family: var(--mono); font-weight: 400; font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); padding: 0 16px 8px 0; border-bottom: 1px solid var(--rule); }
+.compare tbody th, .compare td { vertical-align: top; text-align: left; padding: 16px 18px 16px 0; border-bottom: 1px solid var(--rule); font-size: 0.95rem; line-height: 1.5; }
+.compare tbody th { font-size: 1.05rem; width: 7.2rem; }
+.compare td.them { color: var(--muted); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (max-width: 719px) {
+  .compare thead { display: none; }
+  .compare tr { display: block; padding: 14px 0; border-bottom: 1px solid var(--rule); }
+  .compare tbody th, .compare td { display: block; width: auto; border: 0; padding: 4px 0; }
+  .compare td::before { content: attr(data-label); display: block; font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin: 6px 0 2px; }
 }
 .facts { margin: 0 0 28px; padding: 0; list-style: none; max-width: var(--measure); border-top: 1px solid var(--rule); }
 .facts li { padding: 12px 0; border-bottom: 1px solid var(--rule); }
@@ -191,9 +190,8 @@ footer strong { color: var(--ink); }
   <div class="wrap">
     <a class="mark" href="/">ERP<span>it</span></a>
     <nav aria-label="Sections">
-      <a href="#ownership">Self-ownership</a>
-      <a href="#how">How it works</a>
       <a href="#urbit">Why Urbit</a>
+      <a href="#how">How it works</a>
       <a href="#agents">AI agents</a>
       <a href="#local">Local models</a>
       <a href="#vouch">Customer data</a>
@@ -208,12 +206,12 @@ footer strong { color: var(--ink); }
 <div class="hero">
   <div class="wrap">
     <div>
-      <p class="eyebrow">ERP and MRP · Self-owned by design · AGPL-3.0</p>
-      <h1>Your data stays with the people who own it.</h1>
-      <p class="lede">ERPit runs purchasing, inventory, manufacturing, sales, and accounting for a small manufacturer. The business hosts its own books. Customers host their own personal data. AI agents run on the company's own hardware.</p>
-      <p>Every business action is a signed event, and the accounting comes from those events automatically. AI agents are users with their own identity and limited permissions. Agents propose. People approve. The record shows both.</p>
+      <p class="eyebrow">ERP and MRP on Urbit · AGPL-3.0</p>
+      <h1>Total, verifiable control of your business data.</h1>
+      <p class="lede">ERPit is ERP and manufacturing software built on Urbit. Every company, employee, customer, and AI agent has its own cryptographic identity. Every record carries the signature of the identity that made it, and customers keep their personal data on their own nodes.</p>
+      <p>ERPit runs purchasing, inventory, manufacturing, sales, and accounting for small and mid-size businesses, starting with manufacturers. The accounting comes from the signed events. AI agents propose, people approve, and the record shows both.</p>
       <div class="cta">
-        <a class="btn" href="#ownership">Who owns what</a>
+        <a class="btn" href="#urbit">What Urbit makes possible</a>
         <a href="#status">What is built today</a>
       </div>
     </div>
@@ -247,31 +245,46 @@ footer strong { color: var(--ink); }
   </div>
 </div>
 
-<section id="ownership">
+<section id="urbit">
   <div class="wrap split">
     <div>
-      <p class="kicker">Self-ownership</p>
-      <h2>Each kind of data lives with its owner.</h2>
+      <p class="kicker">Why Urbit</p>
+      <h2>The difference is what the platform can prove.</h2>
     </div>
     <div class="body">
-      <p>ERPit is built for total self-ownership. No vendor cloud sits between people and their own data, and no outside AI service reads it.</p>
-      <ol class="owners">
-        <li class="owners-head" aria-hidden="true"><span>Data · owned and hosted by</span><span>How</span></li>
-        <li>
-          <div><h3>Business records</h3><p class="eg">Books, inventory, orders, costs</p><p class="who">The business</p></div>
-          <p>The company runs ERPit on its own node, on hardware it controls. Every record is a signed event in the company's own log.</p>
-        </li>
-        <li>
-          <div><h3>Customer personal data</h3><p class="eg">Names, addresses, credentials</p><p class="who">The customer</p></div>
-          <p>The customer keeps it on their own node and grants a vendor specific fields, for a stated purpose, until a stated time. The vendor's books record a cryptographic identity, not a name.</p>
-        </li>
-        <li>
-          <div><h3>Agent work</h3><p class="eg">Prompts, answers, proposals</p><p class="who">The business</p></div>
-          <p>Agents run on open-weight models on the company's own hardware. ERPit needs no outside AI service.</p>
-        </li>
-      </ol>
-      <p>ERPit runs on <a href="https://urbit.org/overview">Urbit</a>, a peer-to-peer network of personal servers. Each company, employee, customer, and agent has its own node and cryptographic identity. The company's ERPit host rejects messages from unregistered nodes before it reads them. <a href="#urbit">Why Urbit fits an ERP</a>.</p>
-      <p>No vendor can raise the rent, retire the version, or hold the data.</p>
+      <p>Many ERP systems can run on a company's own server. Where ERPit runs is not the difference. ERPit runs on <a href="https://urbit.org/overview">Urbit</a>, a network of personal servers in which every node has a cryptographic identity. That lets ERPit do four things that an ERP built on a shared database cannot.</p>
+      <table class="compare">
+        <thead><tr><th scope="col"><span class="sr">Topic</span></th><th scope="col">A typical ERP</th><th scope="col">ERPit on Urbit</th></tr></thead>
+        <tbody>
+          <tr>
+            <th scope="row">Identity</th>
+            <td class="them" data-label="A typical ERP">User accounts are records in the ERP's own database. An administrator creates them and can change them.</td>
+            <td data-label="ERPit on Urbit">Every company, employee, customer, and agent has an <a href="https://urbit.org/overview/urbit-explained/urbit-id">Urbit ID</a>: a key and a network address in one. An ERPit administrator cannot forge one.</td>
+          </tr>
+          <tr>
+            <th scope="row">Records</th>
+            <td class="them" data-label="A typical ERP">A person with database access can change a past record. The audit log is another table in the same database.</td>
+            <td data-label="ERPit on Urbit">Each event carries the signature of the Urbit ID that made it. The books are rebuilt from that signed log, and a correction is a new signed event.</td>
+          </tr>
+          <tr>
+            <th scope="row">Customer data</th>
+            <td class="them" data-label="A typical ERP">Customer names and addresses sit in the vendor's database, and the vendor must protect them.</td>
+            <td data-label="ERPit on Urbit">Each customer has their own node. The vendor asks it for specific fields when it needs them. The vendor's permanent records hold the customer's Urbit ID, not their name.</td>
+          </tr>
+          <tr>
+            <th scope="row">AI agents</th>
+            <td class="them" data-label="A typical ERP">An agent usually connects with an API key that carries a person's full rights.</td>
+            <td data-label="ERPit on Urbit">Each agent has its own Urbit ID under its supervisor's node. It can never exceed its supervisor's permissions. By default, a person approves each action.</td>
+          </tr>
+        </tbody>
+      </table>
+      <h3 class="sub">Why Urbit fits an ERP</h3>
+      <ul class="facts">
+        <li><strong>Every app is an event log.</strong> An Urbit app changes state only by processing events, one at a time, in order. ERP data works the same way: stock moves, orders, invoices, and payments, each with rules for what can happen next.</li>
+        <li><strong>Every event is atomic.</strong> An event either happens completely or not at all. A crash in the middle of a write cannot leave half an invoice in the books.</li>
+        <li><strong>Nodes talk directly.</strong> Traffic between nodes is peer-to-peer and encrypted end to end. The company's ERPit host rejects messages from unregistered nodes before it reads them.</li>
+      </ul>
+      <p class="note">The trade-off: Urbit is young. Its hosting tools trail mainstream cloud tools, and few developers know it yet. ERPit accepts that cost for the properties above.</p>
     </div>
   </div>
 </section>
@@ -308,27 +321,6 @@ footer strong { color: var(--ink); }
         </div>
       </li>
     </ol>
-  </div>
-</section>
-
-<section id="urbit">
-  <div class="wrap split">
-    <div>
-      <p class="kicker">Why Urbit</p>
-      <h2>An ERP is a set of state machines. Urbit runs state machines.</h2>
-    </div>
-    <div class="body">
-      <p><a href="https://urbit.org/overview">Urbit</a> is a personal server: an operating system and network that each person or company runs for itself. Its design matches what an ERP needs, so ERPit gets these properties from the platform instead of building them on top of a database.</p>
-      <ul class="facts">
-        <li><strong>Every app is an event log.</strong> An Urbit app changes state only by processing events, one at a time, in order. ERP data works the same way: stock moves, orders, invoices, and payments, each with rules for what can happen next.</li>
-        <li><strong>Every event is atomic.</strong> An event either happens completely or not at all. A crash in the middle of a write cannot leave half an invoice in the books.</li>
-        <li><strong>Identity is built in.</strong> Every node has an <a href="https://urbit.org/overview/urbit-explained/urbit-id">Urbit ID</a>: a name, a network address, and a key in one. Each ERPit event carries the signature of the identity that made it. <q>Who did this</q> is a cryptographic fact, not a log line that an administrator can edit.</li>
-        <li><strong>The org chart maps to the network.</strong> Urbit IDs form a hierarchy. An ERPit agent runs on a moon, which is a child identity under its supervisor's node. The network itself records who answers for each agent.</li>
-        <li><strong>Nodes talk directly.</strong> Traffic between nodes is peer-to-peer and encrypted end to end. A vendor's node asks the customer's node for a field when it needs it, so customer data does not have to sit in the vendor's database.</li>
-        <li><strong>It runs on hardware you own.</strong> Urbit runs on almost any Unix computer, from a home server to a rented machine. Self-hosting is the normal case, not an option.</li>
-      </ul>
-      <p class="note">The trade-off: Urbit is young. Its hosting tools trail mainstream cloud tools, and few developers know it yet. ERPit accepts that cost for the properties above.</p>
-    </div>
   </div>
 </section>
 
@@ -386,7 +378,7 @@ footer strong { color: var(--ink); }
       <h2>Customer data stays with the customer.</h2>
     </div>
     <div class="body">
-      <p><strong>vouch</strong> is ERPit's companion protocol, under the same license. A customer keeps their name, address, and credentials on their own node. They give a vendor a signed grant for specific fields, for a specific purpose, until a specific time.</p>
+      <p><strong>vouch</strong> is ERPit's companion protocol, under the same license. A customer keeps their name, address, and credentials on their own node. They give a vendor a signed grant for specific fields, for a specific purpose, until a specific time. This depends on Urbit: every customer already has a node, so the vendor has somewhere to ask.</p>
       <p>The vendor's books record who did what, with signatures. They do not record the customer's personal details. The customer's node logs each read. When a customer revokes a grant, the next read fails.</p>
       <p>A vendor can also forget a customer's name. ERPit deletes the name it held, and a test measures the stored data to prove the deletion.</p>
       <h3 class="sub">What the business gains</h3>
