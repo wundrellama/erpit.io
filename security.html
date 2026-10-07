@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Security · ERPit · RiRo Enterprises, LLC</title>
+<meta name="description" content="Security at RiRo Enterprises, the developer of ERPit and vouch. Michael Riettini is the Managing Developer and Security Lead and the named contact for security reports.">
+<meta property="og:title" content="Security · ERPit">
+<meta property="og:description" content="The security lead, the security contact, and the security work behind ERPit and vouch.">
+<meta property="og:url" content="https://erpit.io/security.html">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='3' fill='%231e5a41'/%3E%3Cpath d='M9 8h14v3H12.5v3.5H21v3h-8.5V21H23v3H9z' fill='%23f5f2ea'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="/">ERP<span>it</span></a>
+    <nav aria-label="Sections">
+      <a href="/">Overview</a>
+      <a href="#report">Report a problem</a>
+      <a href="#work">Security work</a>
+      <a href="#controls">Controls</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#upstream">Reported upstream</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">Security · RiRo Enterprises, LLC</p>
+      <h1>Security is part of the product.</h1>
+      <p class="lede">ERPit holds a company's books, and vouch holds a customer's personal data. We design both so that the system itself refuses misuse, and every refusal has a name.</p>
+      <p>Michael Riettini leads development and security at RiRo Enterprises. He is the named contact for security reports, incidents, and misuse alerts.</p>
+      <div class="cta">
+        <a class="btn" href="#report">Report a security problem</a>
+        <a href="#work">Our security work</a>
+      </div>
+    </div>
+
+    <figure>
+      <div class="doc">
+        <div class="doc-head"><span>Security lead</span><span class="status">Named contact</span></div>
+        <dl>
+          <dt>Name</dt>
+          <dd>Michael Riettini</dd>
+          <dt>Title</dt>
+          <dd>Managing Developer and Security Lead</dd>
+          <dt>Company</dt>
+          <dd>RiRo Enterprises, LLC, Texas</dd>
+          <dt>Email</dt>
+          <dd><a href="mailto:michael@erpit.io">michael@erpit.io</a></dd>
+          <dt>Urbit</dt>
+          <dd><code>~dinnyt-divsud</code></dd>
+          <dt>GitHub</dt>
+          <dd><a href="https://github.com/wundrellama">wundrellama</a></dd>
+          <dt>Covers</dt>
+          <dd>ERPit, vouch, and RiRo's Urbit nodes and AI agents</dd>
+        </dl>
+        <p class="fine">Also published at <a href="/.well-known/security.txt">/.well-known/security.txt</a></p>
+      </div>
+    </figure>
+  </div>
+</div>
+
+<section id="report">
+  <div class="wrap split">
+    <div>
+      <p class="kicker">Report a problem</p>
+      <h2>Send security reports to the security lead.</h2>
+    </div>
+    <div class="body">
+      <p>To report a vulnerability in ERPit, vouch, or a RiRo system, email <a href="mailto:michael@erpit.io">michael@erpit.io</a>. You can also send a direct message on Urbit to <code>~dinnyt-divsud</code>, for example with Tlon Messenger.</p>
+      <ul class="facts">
+        <li>Name the affected component and its version or commit.</li>
+        <li>Give the steps to reproduce the problem, and what you expected to happen.</li>
+        <li>Tell us how to reach you, and whether you want credit.</li>
+      </ul>
+      <p>Test only against your own systems or your own test nodes. Do not test against nodes that other people run.</p>
+      <p class="note">ERPit and vouch are pre-release. No customer runs them in production yet.</p>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap split">
+    <div>
+      <p class="kicker">Security work</p>
+      <h2>We defend the systems that we build and run.</h2>
+    </div>
+    <div class="body">
+      <p>Our security work covers the software that we maintain and the systems that we operate:</p>
+      <ul class="facts">
+        <li><strong>ERPit and vouch.</strong> We write and maintain both. Both use the AGPL-3.0-or-later license, and the public repositories open with the first release.</li>
+        <li><strong>RiRo's Urbit nodes.</strong> The company's ERPit host, the nodes of our people, and the moons that our AI agents run on.</li>
+        <li><strong>Our AI agent setup.</strong> Open-weight models on our own hardware, and the MCP connections between the agents and ERPit.</li>
+        <li><strong>urgit.</strong> An Urbit Git host that we contribute to upstream and use every day.</li>
+      </ul>
+      <h3 class="sub">How we use AI models in this work</h3>
+      <ul class="facts">
+        <li>Review of ERPit, vouch, and urgit source code before each merge</li>
+        <li>Analysis and validation of the defects that these reviews find, including their effect on stored records</li>
+        <li>Review of third-party Urbit apps before we run them</li>
+        <li>Investigation of failures on our own nodes</li>
+      </ul>
+      <p class="note">We use AI models for security work only on systems that we own, maintain, or contribute to.</p>
+    </div>
+  </div>
+</section>
+
+<section id="controls">
+  <div class="wrap split">
+    <div>
+      <p class="kicker">Controls</p>
+      <h2>Security controls built into ERPit.</h2>
+    </div>
+    <div class="body">
+      <ul class="facts">
+        <li><strong>Default deny.</strong> The company's ERPit host rejects messages from unregistered nodes before it reads them.</li>
+        <li><strong>Signed events.</strong> Each event carries the signature of the Urbit ID that made it. The host checks every event against the permissions of its author.</li>
+        <li><strong>Separation of duties.</strong> Nobody can approve their own proposal. The host checks each approval chain when a role is defined, so a chain cannot loop or end without an approver.</li>
+        <li><strong>Agents under supervision.</strong> An agent can never exceed its supervisor's permissions. When a supervisor loses a permission, every agent under that supervisor loses it too.</li>
+        <li><strong>Strict input.</strong> The host refuses a command that contains a duplicate or unknown key. Thus the text that a person approves and the value that the host signs cannot differ.</li>
+        <li><strong>Less data to steal.</strong> The permanent log holds no customer names. A test measures the stored data to prove that a deleted name is gone.</li>
+      </ul>
+      <p class="note">The limit, stated plainly: an Urbit node stores its data unencrypted on disk. ERPit's deployment rules require an encrypted volume for every ERPit host.</p>
+    </div>
+  </div>
+</section>
+
+<section id="reviews">
+  <div class="wrap split">
+    <div>
+      <p class="kicker">Reviews</p>
+      <h2>Every change gets more than one reviewer.</h2>
+    </div>
+    <div class="body">
+      <ul class="facts">
+        <li><strong>Independent builds.</strong> More than one AI model builds each milestone task independently. Other models review the results, and a person decides what merges.</li>
+        <li><strong>Review campaigns.</strong> In July 2026, a review by several models found 26 candidate defects in ERPit. We confirmed 22 and fixed all 22.</li>
+        <li><strong>Outside review.</strong> In August 2026, an outside Urbit developer reviewed the ERPit code. The hardening work from that review merged as 11 pull requests.</li>
+        <li><strong>Tests.</strong> ERPit had 1,681 automated tests in September 2026. The tests include checks that each refusal happens, and that it gives the correct reason.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="upstream">
+  <div class="wrap split">
+    <div>
+      <p class="kicker">Reported upstream</p>
+      <h2>Defects we found in other projects.</h2>
+    </div>
+    <div class="body">
+      <p>We report the defects that we find in the software we depend on. Each report states the cause and a fix or workaround.</p>
+      <ul class="refs">
+        <li>
+          <p class="ref-meta"><span>Credential isolation</span><a href="https://github.com/NousResearch/hermes-agent/issues/68367">NousResearch/hermes-agent#68367</a><span class="st">Closed as completed, September 2026</span></p>
+          <h3>Hermes Agent: a profile inherited another profile's chat credentials</h3>
+          <p>A backend that the desktop app started for one profile received the chat credentials of a different profile. It then connected a chat platform that its own profile had turned off.</p>
+        </li>
+        <li>
+          <p class="ref-meta"><span>Key handling</span><a href="https://github.com/narrrl/proton-sdk-rs/issues/2">narrrl/proton-sdk-rs#2</a><span class="st">Closed as completed, October 2026</span></p>
+          <h3>Proton Drive Rust SDK: one shared folder's key applied to others</h3>
+          <p>When one request listed several shared folders from the same volume, the SDK used the first folder's key for all of them. The other folders failed to decrypt, and the SDK left them out.</p>
+        </li>
+        <li>
+          <p class="ref-meta"><span>Availability</span><a href="https://github.com/urbit/urbit/issues/7421">urbit/urbit#7421</a><span class="st">Open</span></p>
+          <h3>Urbit networking: a latent crash in transfer progress reports</h3>
+          <p>One function stores a block size of 0, and another function asserts that the stored size matches the real size. A future change that sends real progress data would crash the network event.</p>
+        </li>
+      </ul>
+      <h3 class="sub">Access control we contributed to urgit</h3>
+      <ul class="facts">
+        <li><a href="https://github.com/yapishu/urgit/pull/6">yapishu/urgit#6</a>, merged: access control for each repository, and pull requests that target a branch</li>
+        <li><a href="https://github.com/yapishu/urgit/pull/14">yapishu/urgit#14</a>, merged: repository access through membership in an Urbit group. Access fails closed when the group cannot be checked.</li>
+        <li><a href="https://github.com/yapishu/urgit/pull/16">yapishu/urgit#16</a>, open for review: a CI design. Each job runs in a disposable virtual machine. The required checks come from an approved workflow, not from the change under test.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer id="company">
+  <div class="wrap">
+    <div>
+      <h2>Company</h2>
+      <p><strong>RiRo Enterprises, LLC</strong>, a Texas limited liability company, develops ERPit and vouch.</p>
+    </div>
+    <div class="cols">
+      <div>
+        <h2>Contact</h2>
+        <p><a href="mailto:hello@erpit.io">hello@erpit.io</a></p>
+        <p>Security: <a href="mailto:michael@erpit.io">michael@erpit.io</a></p>
+        <p>Urbit: <code>~dinnyt-divsud</code></p>
+      </div>
+      <div>
+        <h2>License</h2>
+        <p>ERPit and vouch: <a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL-3.0-or-later</a></p>
+      </div>
+    </div>
+    <p class="legal">© 2026 RiRo Enterprises, LLC</p>
+  </div>
+</footer>
+</body>
+</html>
