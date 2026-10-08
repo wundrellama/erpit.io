@@ -50,7 +50,9 @@ h1, h2, h3 { font-weight: 700; line-height: 1.15; letter-spacing: -0.01em; text-
 .top { border-bottom: 1px solid var(--rule); }
 .top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 64px; flex-wrap: wrap; }
 .mark { font-weight: 700; font-size: 1.35rem; color: var(--ink); text-decoration: none; letter-spacing: -0.02em; }
-.mark span { color: var(--accent); }
+.mark { display: inline-flex; align-items: center; gap: 10px; }
+.mark img { display: block; width: 32px; height: 32px; }
+.mark .word span { color: var(--accent); }
 .top nav { display: flex; gap: 4px 20px; flex-wrap: wrap; font-size: 0.95rem; }
 .top nav a { color: var(--muted); text-decoration: none; padding: 10px 0; display: inline-block; white-space: nowrap; }
 @media (max-width: 640px) {
